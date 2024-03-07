@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyCvD0sATO41llZ-9F_8d58lYFssFQSL6wY",
+    authDomain: "ioni2-chat.firebaseapp.com",
+    databaseURL: "https://ioni2-chat-default-rtdb.firebaseio.com",
+    projectId: "ioni2-chat",
+    storageBucket: "ioni2-chat.appspot.com",
+    messagingSenderId: "172270112544",
+    appId: "1:172270112544:web:c98f8984688cc7b76c9145"
+  }
 };
 
 /*
