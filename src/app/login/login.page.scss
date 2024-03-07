@@ -1,0 +1,35 @@
+.logo {
+    font-size: 25vh;
+    margin: 50px auto 30px auto;
+}
+
+h1 {
+    width: 100%;
+    color: white;
+    font-size: 2em;
+}
+
+ion-content {
+    --background: var(--ion-color-success);
+}
+
+.item {
+    --background: var(--ion-color-success);
+}
+
+.row {
+    background-color: white;
+    padding-left: 10px;
+    border-radius: 30px;
+    margin-top: 10px;
+    display: flex;
+
+    ion-input {
+        width: 90%;
+    }
+
+    ion-icon {
+        margin-top: 13px;
+        width: 10%;
+    }
+}
