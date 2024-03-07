@@ -1,8 +1,10 @@
-<!-- <ion-header no-shadow [translucent]="true">
+<ion-header no-shadow [translucent]="true">
   <ion-toolbar color="success">
-    <ion-title>login</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
-</ion-header> -->
+</ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-item class="ion-text-center" lines="none">
@@ -15,6 +17,11 @@
 
   <ion-grid style="width: 75%;">
     <ion-row class="row">
+      <ion-icon name="person" color="success"></ion-icon>
+      <ion-input type="text" placeholder="Name"></ion-input>
+    </ion-row>
+
+    <ion-row class="row">
       <ion-icon name="mail" color="success"></ion-icon>
       <ion-input type="email" placeholder="E-mail"></ion-input>
     </ion-row>
@@ -25,9 +32,9 @@
     </ion-row>
 
     <ion-row style="display: block; margin-top: 20px;">
-      <ion-button type="button" expand="block" shape="round" fill="outline" color="light">Login</ion-button>
+      <ion-button type="button" expand="block" shape="round" fill="outline" color="light">Sign up</ion-button>
     </ion-row>
 
-    <ion-button type="button" expand="block" fill="clear" color="light" (click)="goToSignInPage()">Sign up</ion-button>
+    <ion-button type="button" expand="block" fill="clear" color="light" (click)="goBack()">Log in</ion-button>
   </ion-grid>
 </ion-content>
