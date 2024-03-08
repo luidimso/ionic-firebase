@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -15,7 +15,8 @@ export class SignupPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    public fireAuth: AngularFireAuth
+    public fireAuth: AngularFireAuth,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -26,18 +27,30 @@ export class SignupPage implements OnInit {
   }
 
   signup() {
-    this.fireAuth.createUserWithEmailAndPassword(this.email, this.password).then((user) => {
+    this.fireAuth.createUserWithEmailAndPassword(this.email, this.password).then(async (user) => {
       if(user.user) {
         let newUser: firebase.default.User = user.user;
 
         newUser.updateProfile({
           displayName: this.name
-        }).then((res) => {
-          console.log(res);
+        }).then(async (res) => {
+          let toast = await this.toastController.create({
+            message: "Account created",
+            duration: 3000,
+            color: "primary"
+          });
+
+          toast.present();
         });
       }
-    }).catch((error) => {
-      console.log(error);
+    }).catch(async (error) => {
+      let toast = await this.toastController.create({
+        message: error.message,
+        duration: 3000,
+        color: "danger"
+      });
+
+      toast.present();
     });
   }
 
