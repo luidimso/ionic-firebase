@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-signup',
@@ -8,8 +9,13 @@ import { NavController } from '@ionic/angular';
 })
 export class SignupPage implements OnInit {
 
+  public name: string = "";
+  public email: string = "";
+  public password: string = "";
+
   constructor(
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public fireAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -17,6 +23,22 @@ export class SignupPage implements OnInit {
 
   goBack() {
     this.navCtrl.back();
+  }
+
+  signup() {
+    this.fireAuth.createUserWithEmailAndPassword(this.email, this.password).then((user) => {
+      if(user.user) {
+        let newUser: firebase.default.User = user.user;
+
+        newUser.updateProfile({
+          displayName: this.name
+        }).then((res) => {
+          console.log(res);
+        });
+      }
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
 }
