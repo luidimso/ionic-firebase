@@ -18,22 +18,22 @@
       <ion-icon name="images"></ion-icon>
     </ion-button>
 
-    <ion-input type="text" placeholder="Say something, tell us..."></ion-input>
+    <ion-input type="text" placeholder="Say something, tell us..." [(ngModel)]="textPost"></ion-input>
 
-    <ion-button fill="clear" color="success">
+    <ion-button fill="clear" color="success" (click)="post()">
       <ion-icon name="send"></ion-icon>
     </ion-button>
   </ion-row>
 
 
-  <ion-row class="bottom-bar">
+  <ion-row *ngFor="let post of posts" class="bottom-bar">
     <ion-item-divider color="success">
-      Luidi Matheus
+      {{post.owner_name}}
     </ion-item-divider>
 
-    <ion-item>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis ex impedit iste qui maxime, asperiores, perferendis repellat, culpa neque nisi eligendi. Fugit, sunt autem. Fuga provident obcaecati quos. Omnis, dolores!
-    </ion-item>
+    <div class="post">
+      {{post.text}}
+    </div>
 
     <ion-col>
       <ion-button fill="clear" size="small" color="success">
@@ -47,7 +47,7 @@
       </ion-button>
 
       <ion-button fill="clear" size="small" color="success">
-        <small>12 mins ago</small>
+        <small>{{now(post.createdAt)}}</small>
       </ion-button>
     </ion-col>
   </ion-row>
