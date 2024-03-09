@@ -34,6 +34,8 @@ export class LoginPage implements OnInit {
       });
 
       toast.present();
+
+      this.navCtrl.navigateRoot("home");
     }).catch(async (error) => {
       let toast = await this.toastController.create({
         message: error.message,
