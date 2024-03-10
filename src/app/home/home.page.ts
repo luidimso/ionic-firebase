@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Post, PostService } from '../services/post.service';
 import * as moment from 'moment';
+import { LoadingController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +15,21 @@ export class HomePage implements OnInit {
 
   constructor(
     private postService: PostService,
-    public fireAuth: AngularFireAuth
+    public fireAuth: AngularFireAuth,
+    private loadingController: LoadingController,
+    private navController: NavController
   ) {}
-  ngOnInit(): void {
+
+  async ngOnInit() {
+    let loading = await this.loadingController.create({
+      message: "Loading feed..."
+    });
+
+    loading.present();
+
     this.postService.getPosts().subscribe((posts:Post[]) => {
+      loading.dismiss();
+
       this.posts = posts.sort((a, b) => {
           if(new Date(a.createdAt) > new Date(b.createdAt)) {
             return -1;
@@ -32,10 +44,10 @@ export class HomePage implements OnInit {
   }
 
   async post() {
-    const user = await this.fireAuth.currentUser
+    const user = await this.fireAuth.currentUser;
 
     this.postService.addPost(this.textPost, user).then((document) => {
-      console.log(document);
+      this.textPost = "";
     }).catch((error) => {
       console.log(error);
     })
@@ -47,6 +59,12 @@ export class HomePage implements OnInit {
     let difference = moment(date).diff(moment());
 
     return moment.duration(difference).humanize();
+  }
+
+  logout() {
+    this.fireAuth.signOut().then(() => {
+      this.navController.navigateRoot("/");
+    });
   }
 
 }
