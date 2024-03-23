@@ -10,10 +10,22 @@
 import {onRequest} from "firebase-functions/v2/https";
 import * as logger from "firebase-functions/logger";
 
+import * as admin from "firebase-admin";
+
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+export const helloWorld = onRequest((request, response) => {
+  logger.info("Hello logs!", {structuredData: true});
+  response.send("Hello from Firebase!");
+
+    const id = request.body.id;
+
+    admin.firestore().collection("posts").doc(id).get().then((data) => {
+        // do something
+    })
+
+});
+
+// firebase init
+// firebase deploy --only functions
